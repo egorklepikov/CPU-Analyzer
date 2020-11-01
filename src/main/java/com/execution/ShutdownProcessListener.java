@@ -47,6 +47,15 @@ public class ShutdownProcessListener extends Thread {
       exception.printStackTrace();
       return false;
     }
-    return true;
+
+    boolean listenersDisableCheck = false;
+    for (Thread listener : listeners) {
+      if (!listener.isInterrupted()) {
+        listenersDisableCheck = true;
+        break;
+      }
+    }
+
+    return !process.isAlive() && !listenersDisableCheck;
   }
 }
