@@ -14,14 +14,13 @@ public class ShutdownProcessListenerCase {
     CmdExecutor cmdExecutor = new CmdExecutor();
 
     Thread commandThread = new Thread(() -> {
-      Thread thread = new Thread(() -> cmdExecutor.execute("ping -t 127.0.0.1"));
-      thread.start();
+      cmdExecutor.execute("ping -t 127.0.0.1");
     });
     commandThread.start();
 
     Thread shutdownThread = new Thread(() -> {
       try {
-        Thread.sleep(500);
+        Thread.sleep(200);
         isStopped.set(cmdExecutor.shutdown());
       } catch (InterruptedException exception) {
         exception.printStackTrace();
@@ -37,5 +36,11 @@ public class ShutdownProcessListenerCase {
     }
 
     assertTrue(isStopped.get());
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void testShutdownBeforeExecution() {
+    CmdExecutor cmdExecutor = new CmdExecutor();
+    cmdExecutor.shutdown();
   }
 }
