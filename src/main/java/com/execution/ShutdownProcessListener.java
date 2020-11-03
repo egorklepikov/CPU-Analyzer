@@ -31,11 +31,13 @@ public class ShutdownProcessListener extends Thread {
   public boolean shutdown() {
     isShutdownRequired = true;
 
-    try {
-      this.join();
-    } catch (InterruptedException exception) {
-      exception.printStackTrace();
-      return false;
+    if (process.isAlive()) {
+      try {
+        this.join();
+      } catch (InterruptedException exception) {
+        exception.printStackTrace();
+        return false;
+      }
     }
 
     boolean listenersDisableCheck = false;
