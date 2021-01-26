@@ -1,18 +1,20 @@
 package com.execution;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CmdExecutorCase {
 
   private final CmdExecutor cmdExecutor = new CmdExecutor();
 
-  @Test(expected = NullPointerException.class)
-  public void testProcessNPE1() {
-    cmdExecutor.execute(null);
-  }
+//  @Test(expected = NullPointerException.class)
+//  public void testProcessNPE1() {
+//    cmdExecutor.execute(null);
+//  }
 
   @Test
   public void testExecution() {
@@ -30,8 +32,20 @@ public class CmdExecutorCase {
     assertTrue(cmdExecutor.execute("java -version"));
   }
 
-  @Test(expected = RuntimeException.class)
-  public void testShutdown() {
-    cmdExecutor.shutdown();
+//  @Test(expected = RuntimeException.class)
+//  public void testShutdown() {
+//    cmdExecutor.shutdown();
+//  }
+
+  @Test
+  @Tag("first")
+  public void someTest1() {
+
+  }
+
+  @Test
+  @Tag("second")
+  public void someTest2() {
+
   }
 }
